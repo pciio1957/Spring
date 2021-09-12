@@ -1,0 +1,10 @@
+
+a11.xml에 작성
+<!--  
+	Person p01 = new Person();
+	p01.setName("홍길동");
+	p01.setAge(25);
+	p01.setLoc("신림동");
+-->
+
+-> 가상의 컨테이너를 만듬 
