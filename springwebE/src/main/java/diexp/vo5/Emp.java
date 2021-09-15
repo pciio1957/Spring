@@ -1,6 +1,10 @@
-package springWebE.z02_vo;
-//springWebE.z02_vo.Emp
+package diexp.vo5;
+//jspexp.z02_vo.Emp
 import java.util.Date;
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class Emp {
 	private int empno;
 	private String ename;
@@ -41,6 +45,11 @@ public class Emp {
 		this.sal = sal;
 		this.comm = comm;
 		this.deptno = deptno;
+	}
+	
+	public void showInfo() {
+		System.out.println("직원명 : " + ename);
+		System.out.println("직원번호 : " + empno);
 	}
 	
 	public String getHiredateS() {

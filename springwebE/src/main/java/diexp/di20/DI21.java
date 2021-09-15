@@ -1,10 +1,10 @@
 package diexp.di20;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import diexp.vo.Mart;
+import diexp.vo.Note;
 import diexp.vo.Person;
 
 public class DI21 {
@@ -24,6 +24,11 @@ public class DI21 {
 		Mart mt = ctx.getBean("mt", Mart.class);
 		mt.show();
 		
+		
+		// 다른것들과 합쳐져서 제대로 인식이 안되는 문제! 다른건 주석 처리 후 실행 
+		Note note = ctx.getBean("note", Note.class);
+		note.showNote();
+		//System.out.println();
 		ctx.close();
 		
 		

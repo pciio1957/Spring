@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:aop="http://www.springframework.org/schema/aop" 
 	xmlns:context="http://www.springframework.org/schema/context"
-		xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:c="http://www.springframework.org/schema/c"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -32,62 +32,51 @@
 	public void setAgent(Set<String> agent) 
 	
 3. map(key/value) 형식 데이터 할당 객체
-	map<key, valueObject> : key와 value의 generic 선언으로 된 collection
+	1) property : key/value 형식 collection 
+		컨테이너 <props> 안에 <prop key="">value값</prop>
+	
+	2) map<key, valueObject> : key와 value의 generic 선언으로 된 collection
 		컨테이너 <map> 안에 <entry>에 key/value 형식으로 처리 
 			-> valueObject에 다양한 유형의 데이터를 넣을 수 있음
 
-4. property : key/value 형식 collection 
-		컨테이너 <props> 안에 <prop key="">value값</prop>
 
 -->
 
-	<!--  2. set 형식/Map 형식 데이터 할당 처리 -->
-	<bean id="sensor1" class="diexp.vo.Sensor">
-		<property name="agent">
+	<!--  setSection(Propertise) -->
+	<!--  1) list 형식 -->
+	<bean id="bus" class="diexp.vo.Bus">
+		<property name="busNumber">
 			<set>
-				<value>주식매매</value>
-				<value>자산관리</value>
-				<value>보험관리</value>
+				<value>3003</value>
+				<value>7700</value>
+				<value>7650</value>
 			</set>
 		</property>
-		<property name="addInfo">
+		<property name="sescion">
 			<props>
-				<prop key="threshold">1400</prop>
-				<prop key="rerty">3</prop>
+				<prop key="서울">서울~수원</prop>
+				<prop key="7700">수원~인천</prop>
+				<prop key="7650">부평~강남</prop>
 			</props>
 		</property>
 	</bean>
 	
-	<!--  응용) set/Map 형식 -->
-	<bean id="fruits" class="diexp.vo.FruitShop">
-		<property name="sellList">
-			<set>
-				<value>딸기</value>
-				<value>바나나</value>
-				<value>수박</value>
-			</set>
-		</property>
-			
-		<property name="fruitInfo">
-			<props>
-				<prop key="딸기">13000</prop>
-				<prop key="바나나">2900</prop>
-				<prop key="수박">19000</prop>
-			</props>
-		</property>
-	</bean>
+	<!-- 5번) Product prod2 = new Product("바나나", 3000, 3); -->
+	<bean id="prod2" class="diexp.vo.Product" c:_0="바나나" c:_1="3000" c:_2="3"/>
+	<bean id="prod3" class="diexp.vo.Product" p:name="오렌지" p:price="2000" p:cnt="2"/>
 	
-	
-	<!--  map 형식 : valueObject 사용 -->
-	<bean id="monitor" class="diexp.vo.Monitor">
-		<property name="config">
+	<!--  6번) -->
+	<bean id="stud01" class="diexp.vo.Student" p:name="홍길동" p:kor="70" p:eng="77" p:math="82"/>
+	<bean id="sInfo" class="diexp.vo.OnSchool" c:_0="즐거운학교">
+		<property name="studInfo">
 			<map>
-				<entry key="간격" value="1000"></entry>
-				<entry key="시간"><value>2000</value></entry>
-				<entry key="범위(h)">
-					<value>24시</value>
-				</entry>
+				<entry key="1" value-ref="stud01"></entry>	
+				<entry key="2" value-ref="stud02"></entry>	
+				<entry key="3" value-ref="stud03"></entry>	
 			</map>
 		</property>
 	</bean>
+	
+	
+	
 </beans>

@@ -1,7 +1,13 @@
-package diexp.vo;
+package diexp.vo6;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+@Controller("not")
 public class Note {
 	private String nname;
+	// 소스코드상에 같은 컨테이너 객체가 있으면 로딩된다.
+	@Autowired
 	private String owner;
 	private Pencil pen;
 

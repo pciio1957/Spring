@@ -1,9 +1,15 @@
-package diexp.vo;
+package diexp.vo7;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+@Controller
 public class Mart {
 	private String mname;
+	
+	@Autowired
 	private Product prod;
 	private ArrayList<Product> pList;
 	
