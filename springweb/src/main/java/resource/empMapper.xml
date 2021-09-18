@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<!-- 
+// springweb.a05_mvc.a03_dao.A02_EmpDao
+public interface A02_EmpDao {
+	public ArrayList<Emp> getEmpList();
+ -->
+<mapper namespace="springweb.a05_mvc.a03_dao.A02_EmpDao">
+	<select id="getEmpList" resultType="emp" parameterType="emp">
+		select * from emp 
+		where ename like '%'||#{ename}||'%'
+		and job like '%'||#{job}||'%'
+	</select>
+
+	<update id="updateEmp" parameterType="emp">
+		update emp 
+		set ename=#{ename}, 
+			job=#{job},
+			mgr=#{mgr},
+			sal=#{sal},
+			hiredate=sysdate,
+			comm=#{comm},
+			deptno=#{deptno}
+		where empno=#{empno}
+	</update>
+	
+	<delete id="DeleteEmp" parameterType="int">
+		delete from emp where empno=#{empno}
+	</delete>
+	
+	<select id="schDept" parameterType="int">
+		select * from dept 
+		where deptno=#{deptno}
+	</select>
+</mapper>	

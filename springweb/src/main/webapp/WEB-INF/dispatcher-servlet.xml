@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+xml
+ h4322   h1, h2
+ paaak   p align=""
+ 1. DTD : 상단에 어떤 태그(태그명과 속성)를 사용할지를 선언
+ 2. 위에 선언 후, DTD에 맞는 태그를 활용 수 있다.
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:util="http://www.springframework.org/schema/util"
+	 xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+  		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+   		http://www.springframework.org/schema/websocket
+		http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
+	<!-- 컨테이너에 사용할 객체 등록
+	<bean class="springweb.a01_basic.A01_StartCtrl"/>		
+	<bean class="springweb.a01_basic.A02_SecondCtrl"/>		
+	<bean class="springweb.a01_basic.A03_RequestController"/>	 -->
+	<context:component-scan base-package="springweb">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Dao"/>
+	</context:component-scan>
+	<!-- 
+	# DB연결 처리.
+	1. connection pool 처리
+		1) 드라이버, 주소, 계정, 비번
+	 -->	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>	
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>	
+		<property name="username" value="scott"/>	
+		<property name="password" value="tiger"/>	
+	</bean>
+	<!-- 
+	2. Mybatis와 연동
+		1) dbcp연결
+		2) java/resource/mybatis.Spring.xml
+			로 공통 연결 처리..
+	 --> 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		 
+		<property name="configLocation"
+			value="classpath:resource/mybatis.Spring.xml" />
+		
+	</bean> 
+	<!-- 
+	3. dao 인터페이스 페이지 위치를 설정..
+		인터페이스 ==> 인터페이스의 상속받은
+			 실제객체생성(mybatis 프레임웍 XXXmapper.xml)
+			 
+		name="basePackage" value="dao 경로, dao 경로 "	 
+		
+	
+	 -->
+	<bean 
+		class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="springweb.a05_mvc.a03_dao"/>
+	</bean> 
+		
+</beans>
+
+
+
