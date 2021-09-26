@@ -2,14 +2,27 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
-<!-- 
-// springweb.a05_mvc.a03_dao.A02_EmpDao
-public interface A02_EmpDao {
-	public ArrayList<Emp> getEmpList();
- -->
-<mapper namespace="springweb.a05_mvc.a03_dao.A03_DeptDao">
-	<select id="dlist" resultType="dept">
-		select * from dept
-	</select>
 
+<!-- null값 처리방법 1번) mapper에서 if문을 이용해 dname의 null 확인 -->
+<mapper namespace="springweb.a05_mvc.a03_dao.A03_DeptDao">
+	<select id="dlist" resultType="dept" parameterType="dept">
+		select * from dept02 
+		where loc like '%'||#{loc}||'%'
+		<if test="dname != null and dname != ''">
+			and dname like '%'||#{dname}||'%'
+		</if>
+		
+	</select>
+	
+	<insert id="insertDept" parameterType="dept">
+		insert into dept02 values(#{deptno}, #{dname}, #{loc})
+	</insert>
+	
+	<update id="updateDept" parameterType="dept">
+		update dept02 set dname=#{dname}, loc=#{loc} where deptno=#{deptno}
+	</update>
+
+	<delete id="deleteDept" parameterType="int">
+		delete from dept02 where deptno=#{deptno}
+	</delete>
 </mapper>	

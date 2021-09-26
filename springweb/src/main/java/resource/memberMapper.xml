@@ -15,7 +15,7 @@ public interface A02_EmpDao {
 	</select>
 	
 	<insert id="insertMember" parameterType="member">
-		insert into member values(#{id], #{pass}, #{name}, #{auth}, #{point})
+		insert into member values(#{id}, #{pass}, #{name}, #{auth}, #{point})
 	</insert>
 
 	<update id="updateMember" parameterType="member">
@@ -25,6 +25,5 @@ public interface A02_EmpDao {
 	<delete id="deleteMember" parameterType="String">
 		delete from member where id=#{id}
 	</delete>
-	
 	
 </mapper>	

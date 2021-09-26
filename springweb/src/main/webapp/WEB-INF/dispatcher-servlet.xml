@@ -9,24 +9,30 @@ xml
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:aop="http://www.springframework.org/schema/aop" 
 	xmlns:context="http://www.springframework.org/schema/context"
-		xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:c="http://www.springframework.org/schema/c"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xmlns:util="http://www.springframework.org/schema/util"
-	 xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
+   		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
   		http://www.springframework.org/schema/mvc
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd     
         http://www.springframework.org/schema/util
-       http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/util/spring-util.xsd
    		http://www.springframework.org/schema/websocket
 		http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
+		
+	<!--  0924 공통설정 처리  -->	
+	<context:property-placeholder location="classpath:/resource/properties/info"/>
+	<!--  0924 info파일에 적용한 값 적용시키기  -->
+	<bean class="springweb.z01_vo.Person" p:name="${name1}" p:age="${age1}" p:loc="${loc1}"/> 
+
 	<!-- 컨테이너에 사용할 객체 등록
 	<bean class="springweb.a01_basic.A01_StartCtrl"/>		
 	<bean class="springweb.a01_basic.A02_SecondCtrl"/>		
@@ -37,16 +43,16 @@ xml
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Dao"/>
 	</context:component-scan>
 	<!-- 
-	# DB연결 처리.
-	1. connection pool 처리
-		1) 드라이버, 주소, 계정, 비번
+		# DB연결 처리
+		1. connection pool 처리 (드라이버, 주소, 계정, 비번)
+		2. 공통설정 처리 (0924, 위에 info파일로 설정 후 변수처리)
 	 -->	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
 		destroy-method="close">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>	
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>	
-		<property name="username" value="scott"/>	
-		<property name="password" value="tiger"/>	
+		<property name="driverClassName" value="${driver}"/>	
+		<property name="url" value="${dburl}"/>	
+		<property name="username" value="${name}"/>	
+		<property name="password" value="${pass}"/>	
 	</bean>
 	<!-- 
 	2. Mybatis와 연동
@@ -70,10 +76,41 @@ xml
 		
 	
 	 -->
-	<bean 
-		class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="springweb.a05_mvc.a03_dao"/>
 	</bean> 
+	
+	<!--  
+	컨트롤러의 리턴값이 return "pageJsonReport"를 호출하면
+	아래의 형식으로 모델데이터를 json형식으로 처리하는 뷰
+	-> JSON 형식으로 출력해줌
+	
+	public void call() {
+		return "pageJsonReport"; 
+		-> jsp를 위한 view인지 bean의 id를 선언하는 view인지를 설정하는 부분이 필요함
+			그리고, jsp로 처리하는 것을 우선으로 할 것인가? bean의 id값을 호출하는 것을 우선으로 할 것인가를 
+			order라는 property를 이용하여 설정 
+	}
+	 -->
+	 
+	 <bean id="pageJsonReport" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+	 	<property name="contentType" value="text/html; charset=utf-8"/>
+	 </bean>
+	 
+	 <!--  id값의 view를 등록하고 우선순위를 최우선으로 설정하는 부분을 선언하는 객체 -->
+	 <bean id="btnViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	 	<property name="order" value="0"/>
+	 </bean>
+	 
+	 <!--  컨테이너에 등록된 id값이 아니면 모두 jsp의 경로를 찾아서 해당 jsp를 호출하는 view 선언
+	 
+	 		**jsp의 접두어, 접미어를 생략하고 호출가능, 보다 간단한 호출 가능
+	 		<property name="prefix" value="WEB-INF/views/a01_basic/"/>
+	 		<property name="suffix" value=".jsp"/>
+	 -->
+	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	 	<property name="order" value="1"/>
+	 </bean>
 		
 </beans>
 

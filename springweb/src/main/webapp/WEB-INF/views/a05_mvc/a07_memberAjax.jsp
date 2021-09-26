@@ -26,95 +26,85 @@
 		<%-- 
 		
 		--%>	
-		$(".data").click(function(){
-			$("#exampleModalLongTitle").text("회원상세");
-			var id = $(this).children(0).eq(0).text();
-			var pass = $(this).children(0).eq(1).text();
-			var name = $(this).children(0).eq(2).text();
-			var auth = $(this).children(0).eq(3).text();
-			var point = $(this).children(0).eq(4).text();
-			
-			$("#frm02 [name=id]").val(id);
-			$("#frm02 [name=pass]").val(pass);
-			$("#frm02 [name=name]").val(name);
-			$("#frm02 [name=auth]").val(auth);
-			$("#frm02 [name=point]").val(point);
-			
-			$("#regBtn").hide();
-			$("#uptBtn").show();
-			$("#delBtn").show();
+		
+		$("#schBtn").click(function(){
+			procAjax("memberListAjax.do", "#frm01");
 		});
 		
-		
-		$("#regFrm").click(function(){
-			$("#exampleModalCenter").text("등록");
-			$("#regBtn").show();
-			$("#uptBtn").hide();
-			$("#delBtn").hide();
-		});
-		
-		
-		$("#regBtn").click(function(){
-			if(confirm("등록하시겠습니까?")){
-				$("#frm02").attr("action", "${path}/insertMember.do");
-				$("#frm02").submit();
+		$("#frm01 [name=name], #frm01 [name=auth]").keyup(function(event){
+			if(event.keyCode == 13){
+				procAjax("memberListAjax.do", "#frm01");
 			}
 		});
 		
-		$("#uptBtn").click(function(){
-			if(confirm("수정하시겠습니까?")){
-				$("#frm02").attr("action", "${path}/updateMember.do");
-				$("#frm02").submit();
-			}
-		});
-		
-		$("#delBtn").click(function(){
-			if(confirm("삭제하시겠습니까?")){
-				$("#frm02").attr("action", "${path}/deleteMember.do");
-				$("#frm02").submit();
-			}
-		});
+		$("#regMemberBtn").click(function(){
+			procAjax("memberInsertAjax.do", "#frm02");
+		});	
 	});
+	
+	
+	// 조회&등록을 동시에 처리하기 위한 ajax 함수
+	function procAjax(url, form) {
+		
+		$.ajax({
+			type:"post",
+			url:"${path}/" + url ,
+			data:$(form).serialize(),
+			dataType:"json",
+			success:function(data){
+				console.log(data.memList);
+				var list = data.memList;
+				var show = "";
+				
+				$(list).each(function(idx, mem){
+					show += "<tr class='table-success text-center'><td>" + mem.id;
+					show += "</td><td>" + mem.pass + "</td><td>" + mem.name;
+					show += "</td><td>" + mem.auth + "</td><td>" + mem.point + "</td></tr>";
+				});
+				
+				$("tbody").html(show);
+			},
+			error:function(err){
+				console.log(err);
+			}
+		});
+	}
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>회원정보</h2>
+  <h2>회원등록</h2>
 
 </div>
 <div class="container">
-    <h2 align='center'></h2>
+	<h2 align='center'></h2>
 	<form id="frm01" class="form-inline"  method="post">
-  	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input class="form-control mr-sm-2" placeholder="회원명" value="${param.name}" name="name"/>
-	    <input class="form-control mr-sm-2" placeholder="권한" value="${param.auth}" name="auth"/>
-	    <button class="btn btn-info" type="submit">Search</button>
-	    <button class="btn btn-info" type="button"
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<input class="form-control mr-sm-2" placeholder="이름 입력" name="name"/>
+	    <input class="form-control mr-sm-2" placeholder="권한 입력" name="auth" />
+	    <button class="btn btn-info" id="schBtn" type="button">검색</button>
+	    <button class="btn btn-success" id="regBtn" type="button" 
 	    	data-toggle="modal" data-target="#exampleModalCenter">등록</button>
  	</nav>
 	</form>
-   <table class="table table-hover table-striped">
-    <thead>    
-      <tr class="table-success text-center">
-        <th>아이디</th>
-        <th>패스워드</th>
-        <th>이름</th>
-        <th>권한</th>
-        <th>포인트</th>
-      </tr>
-    </thead>	
-    <tbody>
-   		<c:forEach var="mem" items="${memList}">
-    		<tr class="data text-center" data-toggle="modal" data-target="#exampleModalCenter"><td>${mem.id}</td>
-    		<td>${mem.pass}</td>
-    		<td>${mem.name}</td>
-    		<td>${mem.auth}</td>
-    		<td>${mem.point}</td></tr>
-    	</c:forEach>
-    </tbody>
+	<table class="table table-hover table-striped">
+		<col width="20%">
+		<col width="20%">
+		<col width="20%">
+		<col width="20%">
+		<col width="20%">
+	<thead>
+		<tr class="table-success text-center">
+			<th>아이디</th>
+			<th>패스워드</th>
+			<th>이름</th>
+			<th>권한</th>
+			<th>포인트</th>
+		</tr>
+	</thead>	
+	<tbody></tbody>
 	</table>    
-    
 </div>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -125,38 +115,39 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="frm02" class="form" method="post">
       <div class="modal-body">
-		
+		<form id="frm02" class="form" method="post">
 	     <div class="row">
 	      <div class="col">
 	        <input type="text" class="form-control" placeholder="아이디 입력" name="id">
 	      </div>
+	     </div>
+	     <div class="row">
 	      <div class="col">
 	        <input type="text" class="form-control" placeholder="패스워드 입력" name="pass">
 	      </div>
-	     </div> 
+	     </div>
 	     <div class="row">
 	      <div class="col">
 	        <input type="text" class="form-control" placeholder="이름 입력" name="name">
 	      </div>
+	     </div>
+	     <div class="row">
 	      <div class="col">
 	        <input type="text" class="form-control" placeholder="권한 입력" name="auth">
 	      </div>
-	     </div> 	
+	     </div>
 	     <div class="row">
 	      <div class="col">
 	        <input type="text" class="form-control" placeholder="포인트 입력" name="point">
 	      </div>
-	     </div> 	            
+	     </div>
+	    </form> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="regBtn" class="btn btn-primary">등록</button>
-        <button type="button" id="uptBtn" class="btn btn-info">수정</button>
-        <button type="button" id="delBtn" class="btn btn-warning">삭제</button>
+        <button type="button" class="btn btn-primary" id="regMemberBtn">등록</button>
       </div>
-     </form> 
     </div>
   </div>
 </div>

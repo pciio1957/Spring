@@ -1,0 +1,22 @@
+
+#주석 (인식안됨)
+
+#DB 서버 설정 정보 
+driver=oracle.jdbc.driver.OracleDriver
+dburl=jdbc:oracle:thin:@localhost:1521:xe
+name=scott
+pass=tiger
+
+
+#파일 서버의 경로명 
+upload1=C:/Users/pciio/git/Spring/springweb/src/main/webapp/z01_upload
+
+
+#회원정보 
+name=singildong
+age=30
+loc=jeju
+
+name1=hingildong
+age1=25
+loc1=seoul

@@ -30,4 +30,5 @@ public class A04_MemberService {
 	public void deleteMember(String id){
 		dao.deleteMember(id);
 	}
+	
 }

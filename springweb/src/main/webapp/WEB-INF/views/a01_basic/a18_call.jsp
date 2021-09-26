@@ -36,8 +36,7 @@
 
 </div>
 <div class="container">
-    <h2 align='center'>${serviceMsg}</h2>
-    <h2 align='center'>세션값 : ${member.id}</h2>
+    <h2 align='center'></h2>
 	<form id="frm01" class="form-inline"  method="post">
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	    <input class="form-control mr-sm-2" placeholder="제목" />
@@ -73,7 +72,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">타이틀</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">jsp view호출</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -87,6 +86,7 @@
 	      <div class="col">
 	        <input type="text" class="form-control" placeholder="직책명 입력" name="job">
 	      </div>
+	     </div>
 	    </form> 
       </div>
       <div class="modal-footer">

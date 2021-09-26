@@ -26,23 +26,48 @@
 		<%-- 
 		
 		--%>	
+		
+		// url로 json데이터로 나타내는 view를 연결 
+		$("#regBtn").click(function(){
+			$.ajax({
+				type:"post",
+				url:"${path}/addStudentInfo.do", 
+				data:$("#frm01").serialize(),
+				dataType:"json",
+				success:function(data){
+					console.log(data.student);
+					
+					var stud = data.student;
+					$(".data").eq(0).text(stud.sno);
+					$(".data").eq(1).text(stud.name);
+					$(".data").eq(2).text(stud.kor);
+					$(".data").eq(3).text(stud.eng);
+					$(".data").eq(4).text(stud.math);
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
+		});
 	});
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2 data-toggle="modal" data-target="#exampleModalCenter">타이틀</h2>
+  <h2 data-toggle="modal" data-target="#exampleModalCenter">회원 등록</h2>
 
 </div>
 <div class="container">
-    <h2 align='center'>${serviceMsg}</h2>
-    <h2 align='center'>세션값 : ${member.id}</h2>
+    <h2 align='center'></h2>
 	<form id="frm01" class="form-inline"  method="post">
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input class="form-control mr-sm-2" placeholder="제목" />
-	    <input class="form-control mr-sm-2" placeholder="내용" />
-	    <button class="btn btn-info" type="submit">Search</button>
+	    <input class="form-control mr-sm-2" placeholder="번호 입력" name="sno"/>
+	    <input class="form-control mr-sm-2" placeholder="이름 입력" name="name"/>
+	    <input class="form-control mr-sm-2" placeholder="국어점수 입력" name="kor"/>
+	    <input class="form-control mr-sm-2" placeholder="영어점수 입력" name="eng"/>
+	    <input class="form-control mr-sm-2" placeholder="수학점수 입력" name="math"/>
+	    <button class="btn btn-info" type="button" id="regBtn">등록</button>
  	</nav>
 	</form>
    <table class="table table-hover table-striped">
@@ -52,20 +77,12 @@
    	<col width="15%">
    	<col width="10%">
     <thead>
-    
-      <tr class="table-success text-center">
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-        <th>조회</th>
-      </tr>
+      <tr class="table-success text-center"><th>번호</th><td class="data"></td></tr>
+      <tr class="table-success text-center"><th>이름</th><td class="data"></td></tr>
+      <tr class="table-success text-center"><th>국어</th><td class="data"></td></tr>
+      <tr class="table-success text-center"><th>영어</th><td class="data"></td></tr>
+      <tr class="table-success text-center"><th>수학</th><td class="data"></td></tr>  
     </thead>	
-    <tbody>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
-    </tbody>
 	</table>    
     
 </div>
@@ -87,6 +104,7 @@
 	      <div class="col">
 	        <input type="text" class="form-control" placeholder="직책명 입력" name="job">
 	      </div>
+	     </div>
 	    </form> 
       </div>
       <div class="modal-footer">

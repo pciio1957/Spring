@@ -23,49 +23,73 @@
 <script src="${path}/a00_com/jquery-ui.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		<%-- 
 		
-		--%>	
+
+		$("[name=ename],[name=job]").on("keyup",function(){
+			// jquery ajax처리
+			$.ajax({
+				type:"post",
+				url:"${path}/empListAjax.do",
+				data:$("#frm01").serialize(),
+				dataType:"json",
+				success:function(data){
+					// data.모델명
+					var list = data.empList;
+					var show="";
+					$(list).each(function(idx, emp){
+						show+="<tr class='text-center'>";
+						show+="	<td>"+emp.empno+"</td>";
+						show+="	<td>"+emp.ename+"</td>";
+						show+="	<td>"+emp.job+"</td>";
+						show+="	<td>"+emp.mgr+"</td>";
+						var dt = new Date(emp.hiredate);
+						show+="	<td>"+dt.toLocaleDateString()+"</td>";
+						show+="	<td>"+emp.sal+"</td>";
+						show+="	<td>"+emp.comm+"</td>";
+						show+="	<td>"+emp.deptno+"</td></tr>";
+					});
+					$("table tbody").html(show);
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
+		});
 	});
 </script>
 </head>
 
 <body>
+<%-- 
+		
+--%>	
 <div class="jumbotron text-center">
-  <h2 data-toggle="modal" data-target="#exampleModalCenter">타이틀</h2>
+  <h2 data-toggle="modal" data-target="#exampleModalCenter">사원정보</h2>
 
 </div>
 <div class="container">
-    <h2 align='center'>${serviceMsg}</h2>
-    <h2 align='center'>세션값 : ${member.id}</h2>
+    <h2 align='center'></h2>
 	<form id="frm01" class="form-inline"  method="post">
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input class="form-control mr-sm-2" placeholder="제목" />
-	    <input class="form-control mr-sm-2" placeholder="내용" />
-	    <button class="btn btn-info" type="submit">Search</button>
+	    <input class="form-control mr-sm-2" placeholder="사원명" name="ename"/>
+	    <input class="form-control mr-sm-2" placeholder="직책명" name="job"/>
+	    <button class="btn btn-info" id="schBtn" type="button">Search</button>
  	</nav>
 	</form>
    <table class="table table-hover table-striped">
-   	<col width="10%">
-   	<col width="50%">
-   	<col width="15%">
-   	<col width="15%">
-   	<col width="10%">
     <thead>
-    
       <tr class="table-success text-center">
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-        <th>조회</th>
+        <th>사원번호</th>
+        <th>사원명</th>
+        <th>직책명</th>
+        <th>관리자번호</th>
+        <th>입사일</th>
+        <th>급여</th>
+        <th>보너스</th>
+        <th>부서번호</th>
       </tr>
     </thead>	
-    <tbody>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
-    </tbody>
+    <tbody></tbody>
 	</table>    
     
 </div>
@@ -87,6 +111,7 @@
 	      <div class="col">
 	        <input type="text" class="form-control" placeholder="직책명 입력" name="job">
 	      </div>
+	     </div>
 	    </form> 
       </div>
       <div class="modal-footer">
