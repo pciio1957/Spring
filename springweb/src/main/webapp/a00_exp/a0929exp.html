@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css"> 
+
+/*  
+
+*/
+
+</style>
+</head>
+<link rel="stylesheet" href="${path}/a00_com/jquery-ui.css" >
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="${path}/a00_com/jquery-ui.js"></script>
+<script src="${path}/a00_com/jquery.min.js"></script>
+<body>
+
+<div id="show">
+	<h2>연습예제</h2>
+	<h3>{{name}}</h3>
+	<h3>{{age}}</h3>
+	<h3>{{loc}}</h3>
+</div>
+
+</body>
+<script type="text/javascript">
+
+/*
+	vue는 화면에서 onload된 후 처리가능하므로 ready()에서 사용하거나
+	하단에 선언해야한다.
+*/
+$(document).ready(function(){
+	var model = {name:"홍길동", age:25, loc:"서울"};
+
+	var vm = new Vue({
+		el:"#show", // vue 코드가 있는 요소객체 선택
+		data:model // view단에서 사용할 모델데이터 선언
+	});
+});
+
+
+</script>
+
+</html>

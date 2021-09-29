@@ -26,63 +26,49 @@
 		<%-- 
 		
 		--%>	
-		$("[name=dname],[name=loc]").on("keyup",function(){
-			$.ajax({
-				type:"post",
-				url:"${path}/deptAjax.do",
-				data:$("#frm01").serialize(),
-				dataType:"json",
-				success:function(data){
-					var list = data.deptList;
-					var show="";
-					$(list).each(function(idx, dept){
-						show+="<tr class='text-center'>";
-						show+="<td>"+dept.deptno+"</td>";
-						show+="<td>"+dept.dname+"</td>";
-						show+="<td>"+dept.loc+"</td></tr>";
-					});
-					$("table tbody").html(show);
-				},
-				error:function(err){
-					console.log(err);
-				}
-				
-			});
-		})
 	});
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2 >부서정보</h2>
-
+  <h2>0927 컨테이너 데이터 출력</h2>
+	<h4>${stud.sno}</h4>
+	<h4>${stud.name}</h4>
+	<h4>${stud.kor}</h4>
+	<h4>${stud.eng}</h4>
+	<h4>${stud.math}</h4>
 </div>
 <div class="container">
-    <h2 align='center'></h2>
+	<h2 align='center'></h2>
 	<form id="frm01" class="form-inline"  method="post">
-  	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input class="form-control mr-sm-2" name="dname" placeholder="부서명" />
-	    <input class="form-control mr-sm-2" name="loc" placeholder="부서위치" />
-	    <button class="btn btn-info" type="button" id="schBtn">Search</button>
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<input class="form-control mr-sm-2" placeholder="제목" />
+	    <input class="form-control mr-sm-2" placeholder="내용" />
+	    <button class="btn btn-info" type="submit">Search</button>
  	</nav>
 	</form>
-   <table class="table table-hover table-striped">
-   	<col width="33%">
-   	<col width="33%">
-   	<col width="33%">
-    <thead>   
-      <tr class="table-success text-center">
-        <th>부서번호</th>
-        <th>부서명</th>
-        <th>부서위치</th>
-      </tr>
-    </thead>	
-    <tbody>
-    	
-    </tbody>
+	<table class="table table-hover table-striped">
+		<col width="10%">
+		<col width="50%">
+		<col width="15%">
+		<col width="15%">
+		<col width="10%">
+	<thead>
+		<tr class="table-success text-center">
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>조회</th>
+		</tr>
+	</thead>	
+	<tbody>
+		<tr><td></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	</tbody>
 	</table>    
-    
 </div>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -102,6 +88,7 @@
 	      <div class="col">
 	        <input type="text" class="form-control" placeholder="직책명 입력" name="job">
 	      </div>
+	     </div>
 	    </form> 
       </div>
       <div class="modal-footer">

@@ -25,4 +25,14 @@
 	<delete id="deleteDept" parameterType="int">
 		delete from dept02 where deptno=#{deptno}
 	</delete>
+	
+	
+	<!--  0927 dept vo와 동일하지만 복사테이블 생성 후 조회 -->
+	<select id="dept01List" resultType="dept" parameterType="dept">
+		select * from dept01
+		where loc like '%'||#{loc}||'%'
+		<if test="dname != null and dname != ''">
+			and dname like '%'||#{dname}||'%'
+		</if>
+	</select>
 </mapper>	

@@ -32,6 +32,7 @@ xml
 	<context:property-placeholder location="classpath:/resource/properties/info"/>
 	<!--  0924 info파일에 적용한 값 적용시키기  -->
 	<bean class="springweb.z01_vo.Person" p:name="${name1}" p:age="${age1}" p:loc="${loc1}"/> 
+	<bean class="springweb.z01_vo.Student" p:sno="${s0927sno}" p:name="${s0927name}" p:kor="${s0927kor}" p:eng="${s0927eng}" p:math="${s0927math}"/>  
 
 	<!-- 컨테이너에 사용할 객체 등록
 	<bean class="springweb.a01_basic.A01_StartCtrl"/>		
@@ -47,8 +48,7 @@ xml
 		1. connection pool 처리 (드라이버, 주소, 계정, 비번)
 		2. 공통설정 처리 (0924, 위에 info파일로 설정 후 변수처리)
 	 -->	
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
-		destroy-method="close">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${driver}"/>	
 		<property name="url" value="${dburl}"/>	
 		<property name="username" value="${name}"/>	

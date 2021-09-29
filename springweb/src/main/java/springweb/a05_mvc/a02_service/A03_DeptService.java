@@ -31,4 +31,14 @@ public class A03_DeptService {
 	public void deleteDept(int deptno) {
 		dao.deleteDept(deptno);
 	}
+	
+	
+	// 0927 복사테이블 조회
+	public ArrayList<Dept> dept01List(Dept dept){
+		// null값 처리방식 2번) service단에서 null확인 후 값 변경
+		if(dept.getLoc()== null) {
+			dept.setLoc("");
+		}
+		return dao.dept01List(dept);	
+	}
 }

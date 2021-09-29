@@ -16,4 +16,7 @@ public interface A03_DeptDao {
 	public void updateDept(Dept dept);
 	
 	public void deleteDept(int deptno);
+	
+	// 0927 복사테이블 조회
+	public ArrayList<Dept> dept01List(Dept dept);
 }

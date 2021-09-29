@@ -19,6 +19,21 @@
 		 springweb\WebContent\WEB-INF\lib하위에 ojdbc6.jar		 	 				
 	4) DB에 있는 데이터를 controller하는 실제 명령어 : sql
 		ex) select * from emp, insert into 테이블명 value(입력데이터.. )
+		
+	5) 프로그래밍과 DB서버의 연결과 처리
+		java의 스프링 웹프로그램 <----> DB서버
+		- 연결을 위한 처리 : 컨테이너(dispatcher-servlet.xml)에서 DB연결(DBCP)
+		- 명령문 전달 : mybatis에서 framework으로 설정 처리
+			ex) 웹화면에 id/pass 입력 -> controller단에서 프로그램의 코드
+				vo, 변수 -> DB서버에 접속해서 -> sql로 바꿔서 처리해야한다 
+				
+			객체/변수를 sql로 sql의 결과를 객체/변수를 바꾸기 위해 특정한 
+			규칙으로 처리하게끔 만들어 놓음 
+			mybatis.Spring.xml (범위가 많음)
+				각 sql내용을 대분류로 mapper로 분류
+			empMapper.xml 
+		- 서버로부터 처리된 결과를 받기 
+		
 1. 기본 설정관련.
 	1) db연결을 위한 jdbc driver 설정.
 		cf) jdbc : java database connection

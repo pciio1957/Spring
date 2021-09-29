@@ -8,6 +8,15 @@ public interface A02_EmpDao {
 	public ArrayList<Emp> getEmpList();
  -->
 <mapper namespace="springweb.a05_mvc.a03_dao.A02_EmpDao">
+
+	<!--  0927 추가 
+		위(<resultMap>)처럼 작성하여 아래(<select>)의 resultType에 "resultEmp"를 넣어서 사용할 수 있다 
+		이렇게 사용하는 이유 : 결과값을 처리하는 vo객체의 property와 DB의 컬럼명이 다를때 주로 사용한다 -->
+
+	<resultMap type="emp" id="resultEmp">
+		<!-- <collection property="" column=""></collection>  -->
+	</resultMap>
+
 	<select id="getEmpList" resultType="emp" parameterType="emp">
 		select * from emp 
 		where ename like '%'||#{ename}||'%'
@@ -34,4 +43,57 @@ public interface A02_EmpDao {
 		select * from dept 
 		where deptno=#{deptno}
 	</select>
+	
+	<!--  
+	
+	public ArrayList<Emp> schJob(String job);
+	public ArrayList<Emp> groupDept(double sal);
+	public int countEmp(@Param("minsal") int minsal, @Param("maxsal") int maxsal);
+	public int countEmp2(Map<String, Integer> map);
+	
+	1) select * from emp like '%'||#{job}||'@'
+		결과값 : ArrayList<Emp>
+		입력값 : String job
+		
+		2) select deptno, max(sal) sal 
+			from emp 
+			group by deptno
+			having max(sal) > #{sal}
+		결과값 : ArrayList<Emp>
+		입력값 : double sal
+			
+		3) select count(*)
+			from emp
+			where sal between #{minsal} and #{maxsal}
+		결과값 : int 
+		입력값 : (int minsal, int maxsal) 나 (Map<String, Integer>)
+	
+	 -->
+
+	<select id="schJob" resultType="emp" parameterType="String">
+		select * from emp like '%'|| #{job} ||'%'
+	</select>
+	
+	<select id="groupDept" resultType="emp" parameterType="double">
+		select deptno, max(sal) sal 
+		from emp 
+		group by deptno
+		having max(sal) > #{sal}
+	</select>
+	
+	<select id="countEmp" resultType="int" parameterType="int">
+		select count(*)
+		from emp
+		where sal between #{minsal} and #{maxsal}
+		
+	</select>
+		
+		
+	<select id="countEmp2" resultType="map" parameterType="int">
+		select count(*)
+		from emp
+		where sal between #{minsal} and #{maxsal}
+	</select>
+	
 </mapper>	
+

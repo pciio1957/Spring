@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" type="text/javascript"></script>
+</head>
+<body>
+	<div id="simple">
+		<h2>{{message}}</h2>
+	</div>
+</body>
+<script type="text/javascript">
+
+/*
+
+*/
+	// http://localhost:7080/springweb/a10_vue/a01_basic/a01_vueStart.html
+	// 2. 모델데이터 선언
+	var model = {message:"뷰 시작!"};
+	
+	// 3. 뷰 모델 선언
+	var vm = new Vue({
+		el:"#simple",
+		data:model
+	});
+
+</script>
+</html>

@@ -13,10 +13,17 @@ upload1=C:/Users/pciio/git/Spring/springweb/src/main/webapp/z01_upload
 
 
 #회원정보 
-name=singildong
+#name=singildong
 age=30
 loc=jeju
 
 name1=hingildong
 age1=25
 loc1=seoul
+
+#학생정보 (s0927)
+s0927sno=110
+s0927name=kimjava
+s0927kor=90
+s0927eng=80
+s0927math=78
