@@ -27,3 +27,8 @@ s0927name=kimjava
 s0927kor=90
 s0927eng=80
 s0927math=78
+
+
+#파일서버
+tmpUpload=C:/javaexp/workspace/.metadata/.plugins/org.eclipse.wst.sse.core/springweb/
+upload=C:/javaexp/workspace/springweb/src/main/webapp/z01_upload/

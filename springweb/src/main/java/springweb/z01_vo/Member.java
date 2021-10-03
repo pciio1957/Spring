@@ -1,4 +1,7 @@
 package springweb.z01_vo;
+
+import org.springframework.web.multipart.MultipartFile;
+
 // jspexp.z02_vo.Member
 public class Member {
 	//아이디,패스워드,이름,권한,포인트
@@ -7,12 +10,12 @@ public class Member {
 	private String name;
 	private String auth;
 	private int point;
+
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+		
 	public Member(String id, String pass, String name) {
 		super();
 		this.id = id;
@@ -20,13 +23,11 @@ public class Member {
 		this.name = name;
 	}
 
-
 	public Member(String name, String auth) {
 		super();
 		this.name = name;
 		this.auth = auth;
 	}
-
 
 	public Member(String id, String pass, String name, String auth, int point) {
 		super();
@@ -66,6 +67,5 @@ public class Member {
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	
 	
 }

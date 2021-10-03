@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+</head>
+<!-- 
+응용) a05_biDirect.html
+	입력값을 물건명:[ ] 가격:[ ] 갯수:[ ]
+	하단에 입력과 동시에 결과 출력
+		구매정보 : @@@을 @@개 구매하여 총 @@@원
+-->
+<body>
+	<div id="show">
+		<form>
+			<table width="50%">		
+				<tr text-align="center"><td width="40%">물건명</td><td colspan="2" width="60%"><input type="text" v-model="name"/> </td></tr>
+				<tr text-align="center"><td>가격</td><td><input type="text" v-model="price"/></td></tr>
+				<tr text-align="center"><td>갯수</td><td><input type="text" v-model="cnt"/></td></tr>
+			</table>
+		</form>
+		<table width="50%">
+			<tr text-align="center"><th width="50%">물건명</th><th width="30%">가격</th><th width="20%">갯수</th></tr>
+			<tr text-align="center"><td>{{name}}</td><td>{{price}}</td><td>{{cnt}}</td></tr>
+			<tr text-align="center"><td>구매정보</td><td>{{name}}을 {{cnt}}개 구매하여 {{cnt * price}}원입니다</td></tr>
+		</table>
+		
+	</div>
+</body>
+<script>
+
+	var model = {name:"", price:"", cnt:""};
+	var vm = new Vue({
+		el:"#show",
+		data:model
+	});
+</script>
+</html>

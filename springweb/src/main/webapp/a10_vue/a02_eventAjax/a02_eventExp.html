@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+</head>
+<!-- 
+
+-->
+<body>
+	<div id="show">
+		<h2 align="center">{{msg}}</h2>
+		아이디 : <input v-model="id"/><br>
+		비밀번호 : <input v-model="pass"/>
+		<input type="button" v-on:click="login" value="로그인"/>
+		<h3 v-text="result"></h3>
+	</div>
+</body>
+<script>
+	var vm = new Vue({
+		el:"#show",
+		data:{msg:"이벤트처리 응용", id:"", pass:"", result:"결과"},
+		methods:{
+			login:function(){
+				(this.id == "himan" && this.pass=="7777")?this.result = "성공":this.result = "실패";
+			}
+		}
+	});
+</script>
+</html>
