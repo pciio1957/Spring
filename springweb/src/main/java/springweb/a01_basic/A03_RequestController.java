@@ -55,7 +55,7 @@ public class A03_RequestController {
 	2. 변수로 설정하되 default값 설정
 		매개변수에 대한 option 설정 
 			value : 요청key에 대한 설정.
-			defualtValue : default 요청 key를 설정.
+			defaultValue : default 요청 key를 설정.
 			required : 필수 여부에 대한 설정..
 			==> 요청값이 없더라도 호출되어 처리가 가능하게 해준다.
 	3. bean과 같이 객체로 요청값을 property로 가져오기..

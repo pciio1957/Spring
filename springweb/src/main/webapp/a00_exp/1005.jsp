@@ -21,76 +21,65 @@
 <script src="${path}/a00_com/popper.min.js"></script>
 <script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		
-
-		$("[name=ename],[name=job]").on("keyup",function(){
-			// jquery ajax처리
-			$.ajax({
-				type:"post",
-				url:"${path}/empListAjax.do",
-				data:$("#frm01").serialize(),
-				dataType:"json",
-				success:function(data){
-					// data.모델명
-					var list = data.empList;
-					var show="";
-					$(list).each(function(idx, emp){
-						show+="<tr class='text-center'>";
-						show+="	<td>"+emp.empno+"</td>";
-						show+="	<td>"+emp.ename+"</td>";
-						show+="	<td>"+emp.job+"</td>";
-						show+="	<td>"+emp.mgr+"</td>";
-						var dt = new Date(emp.hiredate);
-						show+="	<td>"+dt.toLocaleDateString()+"</td>";
-						show+="	<td>"+emp.sal+"</td>";
-						show+="	<td>"+emp.comm+"</td>";
-						show+="	<td>"+emp.deptno+"</td></tr>";
-					});
-					$("table tbody").html(show);
+		var vm = new Vue({
+			el:".container",
+			data:{msg:"쌍용은행", amount:0, balance:0}, // 입금/출금잔액, 잔액
+			methods:{
+				saving:function(){ // 입금
+					this.balace += parseInt(this.amount);
 				},
-				error:function(err){
-					console.log(err);
+				withdrae:function(){ // 출금
+					this.balance -= parseInt(this.amount);
 				}
-			});
-		});
+			}
+		});	
+		<%-- 
+		
+		--%>	
 	});
 </script>
 </head>
 
 <body>
-<%-- 
-		
---%>	
 <div class="jumbotron text-center">
-  <h2 data-toggle="modal" data-target="#exampleModalCenter">사원정보</h2>
+  <h2 data-toggle="modal" data-target="#exampleModalCenter">타이틀</h2>
 
 </div>
 <div class="container">
-           
-    <h2 align='center'></h2>
+    <h2 align='center'>{{msg}}</h2>
 	<form id="frm01" class="form-inline"  method="post">
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input class="form-control mr-sm-2" placeholder="사원명" name="ename"/>
-	    <input class="form-control mr-sm-2" placeholder="직책명" name="job"/>
-	    <button class="btn btn-info" id="schBtn" type="button">Search</button>
+	    <input class="form-control mr-sm-2" placeholder="금액" v-model="amount"/>
+	    
+	    <button class="btn btn-info" type="button" v-on:click="saving">입금</button>
+	    <button class="btn btn-info" type="button" v-on:click="withdraw">출금</button>
+	    <input class="form-control mr-sm-2" placeholder="잔액" v-model="balance"/>
  	</nav>
 	</form>
    <table class="table table-hover table-striped">
+   	<col width="10%">
+   	<col width="50%">
+   	<col width="15%">
+   	<col width="15%">
+   	<col width="10%">
     <thead>
+    
       <tr class="table-success text-center">
-        <th>사원번호</th>
-        <th>사원명</th>
-        <th>직책명</th>
-        <th>관리자번호</th>
-        <th>입사일</th>
-        <th>급여</th>
-        <th>보너스</th>
-        <th>부서번호</th>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회</th>
       </tr>
     </thead>	
-    <tbody></tbody>
+    <tbody>
+    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
 	</table>    
     
 </div>

@@ -21,76 +21,80 @@
 <script src="${path}/a00_com/popper.min.js"></script>
 <script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		
-
-		$("[name=ename],[name=job]").on("keyup",function(){
-			// jquery ajax처리
-			$.ajax({
-				type:"post",
-				url:"${path}/empListAjax.do",
-				data:$("#frm01").serialize(),
-				dataType:"json",
-				success:function(data){
-					// data.모델명
-					var list = data.empList;
-					var show="";
-					$(list).each(function(idx, emp){
-						show+="<tr class='text-center'>";
-						show+="	<td>"+emp.empno+"</td>";
-						show+="	<td>"+emp.ename+"</td>";
-						show+="	<td>"+emp.job+"</td>";
-						show+="	<td>"+emp.mgr+"</td>";
-						var dt = new Date(emp.hiredate);
-						show+="	<td>"+dt.toLocaleDateString()+"</td>";
-						show+="	<td>"+emp.sal+"</td>";
-						show+="	<td>"+emp.comm+"</td>";
-						show+="	<td>"+emp.deptno+"</td></tr>";
-					});
-					$("table tbody").html(show);
+		var vm = new Vue({
+			el:".container",
+			data:{msg:"ajax회원정보조회", name:"", auth:"", mlist:[]},
+			methods:{
+				search:function(){
+					this.fetchList();
 				},
-				error:function(err){
-					console.log(err);
+				fetchList:function(){
+					this.mlist=[];
+					var url = "${path}/memberListAjax3.do?name="+this.name+"&auth="+this.auth;
+					var vm = this;
+					fetch(url).then(function(response){
+						console.log(response);
+						return response.json();
+					}).then(function(json){
+						console.log(json);
+						vm.mlist = json;
+					}).catch(function(err){
+						console.log(err);
+					});
 				}
-			});
-		});
+			}
+		});	
+		<%-- 
+		
+		--%>	
 	});
 </script>
 </head>
 
 <body>
-<%-- 
-		
---%>	
 <div class="jumbotron text-center">
-  <h2 data-toggle="modal" data-target="#exampleModalCenter">사원정보</h2>
+  <h2 data-toggle="modal" data-target="#exampleModalCenter">타이틀</h2>
 
 </div>
 <div class="container">
-           
-    <h2 align='center'></h2>
+    <h2 align='center'>{{msg}}</h2>
 	<form id="frm01" class="form-inline"  method="post">
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input class="form-control mr-sm-2" placeholder="사원명" name="ename"/>
-	    <input class="form-control mr-sm-2" placeholder="직책명" name="job"/>
-	    <button class="btn btn-info" id="schBtn" type="button">Search</button>
+  	<!-- @keyup 이벤트 실행시 @keyup.13 으로 실행하면 키코드 13을 인식함, Vue에서만 가능함  -->
+	    <input class="form-control mr-sm-2" placeholder="이름" v-model="name"/>
+	    <input class="form-control mr-sm-2" placeholder="권한" v-model="auth"/>
+	    <button class="btn btn-info" @click="search" type="button">Search</button>
  	</nav>
 	</form>
    <table class="table table-hover table-striped">
+   	<col width="20%">
+   	<col width="20%">
+   	<col width="20%">
+   	<col width="20%">
+   	<col width="20%">
     <thead>
+    
       <tr class="table-success text-center">
-        <th>사원번호</th>
-        <th>사원명</th>
-        <th>직책명</th>
-        <th>관리자번호</th>
-        <th>입사일</th>
-        <th>급여</th>
-        <th>보너스</th>
-        <th>부서번호</th>
+        <th>아이디</th>
+        <th>비밀번호</th>
+        <th>이름</th>
+        <th>권한</th>
+        <th>포인트</th>
       </tr>
     </thead>	
-    <tbody></tbody>
+    <tbody>
+    	<tr class="text-center" v-for="mem in mlist">
+    		<td>{{mem.id}}</td>
+    		<td>{{mem.pw}}</td>
+    		<td>{{mem.name}}</td>
+    		<td>{{mem.auth}}</td>
+    		<td>{{mem.point}}</td>
+    	</tr>
+    </tbody>
 	</table>    
     
 </div>

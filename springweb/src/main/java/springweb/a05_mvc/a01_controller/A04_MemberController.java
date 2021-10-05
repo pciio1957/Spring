@@ -71,7 +71,8 @@ public class A04_MemberController {
 		return "redirect:/memberSchList.do";
 	}
 	
-	// 0924 정리문제 4번 - member 등록 후 json 데이터로 화면출력 
+	// 0924 정리문제 4번 - member 등록 후 json 데이터로 화면출력
+	// 1005 정리문제 4번 - member리스트를 vue로 ajax 처리하기 
 	// http://localhost:7080/springweb/inserMember.do
 	@RequestMapping("memberListAjax.do")
 	public String memberListAjax(Member sch, Model d) {
