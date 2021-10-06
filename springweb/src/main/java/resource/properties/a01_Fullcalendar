@@ -1,0 +1,22 @@
+
+
+#fullcalendar api
+1. jquery 플러그인 프로그램으로 일정을 캘린더형식으로 등록/수정/삭제 처리할 수 있다
+2. 처리 순서
+	1) api 다운로드
+	2) 공통 설정파일 선언
+	3) controller를 통한 초기화면 호출
+	4) 사용할 DB 확인 및 DB script 처리
+		테이블 생성, sequence 생성, list/insert/update/delete문 작성
+	5) dao/mapper 설정
+	6) dao -> service -> controller (RestController) 호출 처리
+	7) 화면단 초기 로딩 ajax 처리
+		- 리스트 화면 호출
+	8) 클릭시 세부항목 처리 
+		- 등록(ajax)
+		- 상세내용 확인
+			수정(ajax)
+			삭제(ajax)
+			
+		최신버전으로 진행하려고 해서 원래 버전이랑 안맞을 수도 있고 버벅거릴 수도 있음 
+		

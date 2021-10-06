@@ -26,6 +26,12 @@
 		<%-- 
 		
 		--%>	
+		$("#fname").click(function(){
+			var fname = $(this).text();
+			if(confirm("파일을 다운로드하시겠습니까?")){
+				location.href = "${path}/download.do?fname=" + fname;
+			}
+		});
 	});
 </script>
 </head>
@@ -52,16 +58,11 @@
 		<col width="10%">
 	<thead>
 		<tr class="table-success text-center">
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-			<th>조회</th>
+			<th>업로드파일명</th>
 		</tr>
 	</thead>	
 	<tbody>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td id="fname">${fname}</td></tr>
 		<tr><td></td><td></td><td></td><td></td><td></td></tr>
 	</tbody>
 	</table>    

@@ -21,12 +21,14 @@ public class A10_FileUploadCtrl {
 		return "WEB-INF\\views\\a01_basic\\a21_uploadFile.jsp";
 	}
 	
+	// http://localhost:7080/springweb/uploadFrm.do
 	@RequestMapping("upload.do")
 	public String upload(@RequestParam("report") MultipartFile report,
 						@RequestParam("name") String name, Model m) {
 		
 		// service에서 처리할 내용
 		service(report, name);
+		m.addAttribute("fname", report.getOriginalFilename());
 		return "WEB-INF\\views\\a01_basic\\a21_uploadFile.jsp";
 	}
 	

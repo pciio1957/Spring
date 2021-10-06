@@ -108,6 +108,8 @@ xml
 	 <!--  0930 첨부파일을 위한 MultipartFile view Resolver -->
 	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	 
+	 <bean id="downloadViewer" class="springweb.z02_util.DownloadViewer"></bean>
+	 
 	 <!--  id값의 view를 등록하고 우선순위를 최우선으로 설정하는 부분을 선언하는 객체 -->
 	 <bean id="btnViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 	 	<property name="order" value="0"/>
