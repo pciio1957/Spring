@@ -13,14 +13,15 @@
 		<typeAlias alias="emp" type="springweb.z01_vo.Emp"/>
 		<typeAlias alias="dept" type="springweb.z01_vo.Dept"/>
 		<typeAlias alias="member" type="springweb.z01_vo.Member"/>
+		<typeAlias alias="cal" type="springweb.z01_vo.Calendar"/>	
 	</typeAliases>
-	<!-- XXXMapper.xml
-	resource\empMapper.xml
-	 -->
+	
+	<!-- XXXMapper.xml  ->   resource\empMapper.xml-->
 	<mappers>
 		<mapper resource="resource/empMapper.xml"/>
 		<mapper resource="resource/deptMapper.xml"/>
 		<mapper resource="resource/memberMapper.xml"/>
+		<mapper resource="resource/calMapper.xml"/>
 	</mappers>
 
 </configuration>

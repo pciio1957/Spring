@@ -21,55 +21,88 @@
 <script src="${path}/a00_com/popper.min.js"></script>
 <script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var vm = new Vue({
+			el:".container",
+			data:{msg:"시작!!(뷰와함께)"}
+		});	
 		<%-- 
 		
 		--%>	
-		var id = "${member.id}";
-		if(id != "") {
-			alert("로그인 완료");
-			//location.href = "${path}/mvc01.do";
-		}
 	});
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>로그인</h2>
+  <h2 data-toggle="modal" data-target="#exampleModalCenter">타이틀</h2>
 
 </div>
 <div class="container">
-	<h2 align='center'>${member.id} : ${member.pass}</h2>
+    <h2 align='center'>{{msg}}</h2>
 	<form id="frm01" class="form-inline"  method="post">
-	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<input class="form-control mr-sm-2" placeholder="아이디" name="id"/>
-	    <input class="form-control mr-sm-2" placeholder="패스워드" name="pass"/>
-	    <button class="btn btn-info" type="submit">로그인</button>
+  	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	    <input class="form-control mr-sm-2" placeholder="제목" />
+	    <input class="form-control mr-sm-2" placeholder="내용" />
+	    <button class="btn btn-info" type="submit">Search</button>
  	</nav>
 	</form>
-	<table class="table table-hover table-striped">
-		<col width="10%">
-		<col width="50%">
-		<col width="15%">
-		<col width="15%">
-		<col width="10%">
-	<thead>
-		<tr class="table-success text-center">
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-			<th>조회</th>
-		</tr>
-	</thead>	
-	<tbody>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-		<tr><td></td><td></td><td></td><td></td><td></td></tr>
-	</tbody>
+   <table class="table table-hover table-striped">
+   	<col width="10%">
+   	<col width="50%">
+   	<col width="15%">
+   	<col width="15%">
+   	<col width="10%">
+    <thead>
+    
+      <tr class="table-success text-center">
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회</th>
+      </tr>
+    </thead>	
+    <tbody>
+    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
 	</table>    
+   
+<form>
+  <div class="row">
+    <div class="col">
+      <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+    <div class="col">
+      <input type="password" class="form-control" placeholder="Enter password" name="pswd">
+    </div>
+  </div>
+</form>
+<form>
+  <div class="form-row">
+    <div class="col">
+      <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+    <div class="col">
+      <input type="password" class="form-control" placeholder="Enter password" name="pswd">
+    </div>
+  </div>
+</form>
+<form>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Person</span>
+    </div>
+    <input type="text" class="form-control" placeholder="First Name">
+    <input type="text" class="form-control" placeholder="Last Name">
+  </div>
+</form>   
+    
 </div>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
